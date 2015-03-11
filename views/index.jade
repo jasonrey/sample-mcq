@@ -13,4 +13,43 @@ html
     body
         .container
             .jumbotron
-                h1.title Playground
+                h1.title MCQ with choices
+                ol
+                    li The allowed number of options can start from 1
+                    li For true/false, available options will be 2, allowed option will be 1
+                    li For MCQ, available options will be generally 4, allowed option will be 1
+                    li Multiple answers will have allowed option more than 1
+
+        .container
+            .panel.panel-primary
+                .panel-heading
+                    h2 Mechanics - True/False
+                .panel-body.item.truefalse(data-allowed="1", data-id="1")
+                    div.question Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec sapien scelerisque, mollis justo at, cursus ante.
+                    div.answers.btn-group
+                        button.btn.btn-default.btn-true.option(data-id="1") True
+                        button.btn.btn-default.btn-false.option(data-id="2") False
+
+            .panel.panel-primary
+                .panel-heading
+                    h2 Mechanics - MCQ - Allow 1
+                .panel-body.item.mcq(data-allowed="1", data-id="2")
+                    div.question Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec sapien scelerisque, mollis justo at, cursus ante.
+                    ol.answers
+                        li.option(data-id="3") This is option A
+                        li.option(data-id="4") That is option B
+                        li.option(data-id="5") Here is option C
+                        li.option(data-id="6") There is option D
+
+            .panel.panel-primary
+                .panel-heading
+                    h2 Mechanics - MCQ - Allow 2
+                .panel-body.item.mcq(data-allowed="2", data-id="3")
+                    div.question Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec sapien scelerisque, mollis justo at, cursus ante.
+                    ol.answers
+                        li.option(data-id="7") This is option A
+                        li.option(data-id="8") That is option B
+                        li.option(data-id="9") Here is option C
+                        li.option(data-id="10") There is option D
+                    .actions
+                        button.btn.btn-default.check Check Answer
