@@ -8,15 +8,12 @@ $ ->
     verifyAnswer = (data) ->
         answer = answers[data.id]
 
-        if answer.length is 1
-            return answer[0] is parseInt data.answer
-        else
-            return false if answer.length isnt data.answer.length
+        return false if answer.length isnt data.answer.length
 
-            for a in answer
-                return false if a not in data.answer
+        for a in answer
+            return false if a not in data.answer
 
-            return true
+        return true
     checkAnswer = (data) ->
         response =
             result: verifyAnswer data
