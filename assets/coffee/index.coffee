@@ -1,17 +1,17 @@
 $ ->
     # Sample answers
     # Standardise answer to be always array regardless of the number of answers
-    answers =
+    master =
         "1": [1]
         "2": [5]
         "3": [8, 9]
     verifyAnswer = (data) ->
-        answer = answers[data.id]
+        answers = master[data.id]
 
-        return false if answer.length isnt data.answer.length
+        return false if answers.length isnt data.answers.length
 
-        for a in answer
-            return false if a not in data.answer
+        for a in answers
+            return false if a not in data.answers
 
         return true
     checkAnswer = (data) ->
@@ -19,7 +19,7 @@ $ ->
             result: verifyAnswer data
 
         if response.result is false
-            response.answer = answers[data.id]
+            response.answers = master[data.id]
 
         return response
 
@@ -55,9 +55,7 @@ $ ->
 
     item.on "click", ".check", (event) ->
         button = $ @
-
         block = $ event.delegateTarget
-
         block.trigger "check"
 
     item.on "check", (event) ->
@@ -76,25 +74,24 @@ $ ->
 
         block.addClass "disabled"
 
-        answer = []
-        answer.push $(active).data "id" for active in actives
+        answers = ($(active).data "id" for active in actives)
 
         # Actual ajax call will have response.status and response.data
 
         data = checkAnswer(
             id: id
-            answer: answer
+            answers: answers
         )
 
         # (bool) data.result True for correct
-        # (array) data.answer
+        # (array) data.answers
 
         if data.result is true
             actives.addClass "correct"
         else
             actives.addClass "wrong"
 
-            for a in data.answer
+            for a in data.answers
                 option = block.find ".option[data-id=" + a + "]"
 
                 option.addClass "correct"
