@@ -5,6 +5,9 @@ html
         link(rel="stylesheet", href="css/bootstrap.min.css")
         script(type="text/javascript", src="js/jquery.min.js")
 
+        link(rel="stylesheet", href="css/feedback.css")
+        script(type="text/javascript", src="js/feedback.js")
+
         script(type="text/coffeescript", src="coffee/index.coffee")
         link(rel="stylesheet/less", type="text/css", href="less/index.less")
 
@@ -53,3 +56,8 @@ html
                         li.option(data-id="10") There is option D
                     .actions
                         button.btn.btn-default.check Check Answer
+
+            .panel.panel-warning
+                .panel-heading
+                    h2 To Do
+                .panel-body#feedback(data-identifier="mcq")
