@@ -5,94 +5,99 @@ $ ->
         "1": [1]
         "2": [5]
         "3": [8, 9]
-    verifyAnswer = (data) ->
+    checkAnswer = (data) ->
+        dfd = $.Deferred()
+
         answers = master[data.id]
 
-        return false if answers.length isnt data.answers.length
+        response = state: true
+
+        response.state = false if answers.length isnt data.answers.length
 
         for a in answers
-            return false if a not in data.answers
+            response.state = false if a not in data.answers
 
-        return true
-    checkAnswer = (data) ->
-        response =
-            result: verifyAnswer data
+        if response.state is false
+            response.answers = answers
 
-        if response.result is false
-            response.answers = master[data.id]
+        dfd.resolve response
 
-        return response
+        return dfd
 
-    item = $ ".item"
+    items = $ "[data-type='mcq']"
 
-    item.on "click", ".option", (event) ->
-        option = $ @
+    return if items.length is 0
 
-        block = $ event.delegateTarget
+    for item in items
+        item = $ item
 
-        if block.hasClass "disabled"
-            return
+        item.on "click", ".option", (event) ->
+            option = $ @
 
-        allowed = parseInt block.data "allowed"
+            block = $ event.delegateTarget
 
-        if allowed is 1
-            option.siblings().removeClass "active"
-            option.addClass "active"
-
-            # Immediately check
-            block.trigger "check"
-        else
-            if option.hasClass "active"
-                option.removeClass "active"
+            if block.hasClass "disabled"
                 return
+
+            allowed = parseInt block.data "allowed"
+
+            if allowed is 1
+                option.siblings().removeClass "active"
+                option.addClass "active"
+
+                # Immediately check
+                block.trigger "check"
+            else
+                if option.hasClass "active"
+                    option.removeClass "active"
+                    return
+
+                actives = block.find ".option.active"
+
+                if actives.length >= allowed
+                    return
+
+                option.addClass "active"
+
+        item.on "click", ".check", (event) ->
+            button = $ @
+            block = $ event.delegateTarget
+            block.trigger "check"
+
+        item.on "check", (event) ->
+            block = $ @
+
+            if block.hasClass "disabled"
+                return
+
+            id = block.data "id"
+            allowed = block.data "allowed"
 
             actives = block.find ".option.active"
 
-            if actives.length >= allowed
+            if actives.length < allowed
                 return
 
-            option.addClass "active"
+            block.addClass "disabled"
 
-    item.on "click", ".check", (event) ->
-        button = $ @
-        block = $ event.delegateTarget
-        block.trigger "check"
+            answers = ($(active).data "id" for active in actives)
 
-    item.on "check", (event) ->
-        block = $ @
+            # Actual ajax call will have response.status and response.data
 
-        if block.hasClass "disabled"
-            return
+            checkAnswer(
+                id: id
+                answers: answers
+            ).done (response) ->
+                # (bool) response.state True if overall correct
+                # (array) response.answers The answers
 
-        id = block.data "id"
-        allowed = block.data "allowed"
+                if response.state is true
+                    actives.addClass "correct"
+                else
+                    actives.addClass "wrong"
 
-        actives = block.find ".option.active"
+                    for a in response.answers
+                        option = block.find ".option[data-id=" + a + "]"
 
-        if actives.length < allowed
-            return
-
-        block.addClass "disabled"
-
-        answers = ($(active).data "id" for active in actives)
-
-        # Actual ajax call will have response.status and response.data
-
-        data = checkAnswer(
-            id: id
-            answers: answers
-        )
-
-        # (bool) data.result True for correct
-        # (array) data.answers
-
-        if data.result is true
-            actives.addClass "correct"
-        else
-            actives.addClass "wrong"
-
-            for a in data.answers
-                option = block.find ".option[data-id=" + a + "]"
-
-                option.addClass "correct"
-                option.removeClass "wrong" if option.hasClass "active"
+                        option.addClass "correct"
+                        option.removeClass "wrong" if option.hasClass "active"

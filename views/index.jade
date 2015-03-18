@@ -23,11 +23,10 @@ html
                     li For MCQ, available options will be generally 4, allowed option will be 1
                     li Multiple answers will have allowed option more than 1
 
-        .container
             .panel.panel-primary
                 .panel-heading
                     h2 Mechanics - True/False
-                .panel-body.item.truefalse(data-allowed="1", data-id="1")
+                .panel-body.item.truefalse(data-type="mcq", data-allowed="1", data-id="1")
                     div.question Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec sapien scelerisque, mollis justo at, cursus ante.
                     div.answers.btn-group
                         button.btn.btn-default.btn-true.option(data-id="1") True
@@ -36,7 +35,7 @@ html
             .panel.panel-primary
                 .panel-heading
                     h2 Mechanics - MCQ - Allow 1
-                .panel-body.item.mcq(data-allowed="1", data-id="2")
+                .panel-body.item.mcq(data-type="mcq", data-allowed="1", data-id="2")
                     div.question Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec sapien scelerisque, mollis justo at, cursus ante.
                     ol.answers
                         li.option(data-id="3") This is option A
@@ -47,7 +46,7 @@ html
             .panel.panel-primary
                 .panel-heading
                     h2 Mechanics - MCQ - Allow 2
-                .panel-body.item.mcq(data-allowed="2", data-id="3")
+                .panel-body.item.mcq(data-type="mcq", data-allowed="2", data-id="3")
                     div.question Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec sapien scelerisque, mollis justo at, cursus ante.
                     ol.answers
                         li.option(data-id="7") This is option A
@@ -56,6 +55,131 @@ html
                         li.option(data-id="10") There is option D
                     .actions
                         button.btn.btn-default.check Check Answer
+
+            .panel.panel-default
+                .panel-heading
+                    h2 HTML Block
+                .panel-body
+                    pre
+                        = "<div "
+                        strong= 'data-type="mcq"'
+                        = " "
+                        strong= 'data-id="(id)"'
+                        = " "
+                        strong= 'data-allowed="(allowed)"'
+                        = ">"
+                        br
+                        = "    <div "
+                        strong= "class=\"question\""
+                        = ">"
+                        br
+                        strong= "        (question)"
+                        br
+                        = "    </div>"
+                        br
+                        = "    <ol|div "
+                        strong= 'class="answers"'
+                        = ">"
+                        br
+                        strong= "    (loop-start)"
+                        br
+                        = "        <li|div "
+                        strong= 'class="option"'
+                        = " "
+                        strong= 'data-id="(optionid)"'
+                        = ">"
+                        strong= '(option)'
+                        = "</li|div>"
+                        br
+                        strong= "    (loop-end)"
+                        br
+                        = "    </ol|div>"
+                        br
+                        = "    <button|a "
+                        strong= "class=\"check\""
+                        = ">Check Answer</button|a>"
+                        br
+                        = "</div>"
+
+            .panel.panel-default
+                .panel-heading
+                    h2 CSS Classes
+                .panel-body
+                    h3 Question Block .question
+                    pre= '<div class="question"></div>'
+
+                    h3 Answers Block .answers
+                    pre= '<ol|div class="answers"></ol|div>'
+
+                    h3 Answer .answers .option
+                    pre= '<li|div class="option"></li|div>'
+
+                    h3 Check Answer .check
+                    pre= '<button|a class="check">Check Answer</button|a>'
+
+            .panel.panel-default
+                .panel-heading
+                    h2 Answers Database
+                .panel-body
+                    table.table.table-striped.table-condensed
+                        thead
+                            tr
+                                th id
+                                th questionid
+                                th value
+                                th correct
+                        tbody
+                            tr
+                                td 1
+                                td 1
+                                td True
+                                td 1
+                            tr
+                                td 2
+                                td 1
+                                td False
+                                td 0
+                            tr
+                                td 3
+                                td 2
+                                td This is option A
+                                td 0
+                            tr
+                                td 4
+                                td 2
+                                td That is option B
+                                td 0
+                            tr
+                                td 5
+                                td 2
+                                td Here is option C
+                                td 1
+                            tr
+                                td 6
+                                td 2
+                                td There is option D
+                                td 0
+                            tr
+                                td 7
+                                td 3
+                                td This is option A
+                                td 0
+                            tr
+                                td 8
+                                td 3
+                                td That is option B
+                                td 1
+                            tr
+                                td 9
+                                td 3
+                                td Here is option C
+                                td 1
+                            tr
+                                td 10
+                                td 3
+                                td There is option D
+                                td 0
+
 
             .panel.panel-warning
                 .panel-heading
