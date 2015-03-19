@@ -73,7 +73,8 @@ html
                         strong= 'class="question"'
                         = ">"
                         br
-                        strong= "        (question)"
+                        = "        "
+                        strong= "(question)"
                         br
                         = "    </div>"
                         br
@@ -105,16 +106,94 @@ html
                 .panel-heading
                     h2 CSS Classes
                 .panel-body
-                    h3 Question Block .question
+                    h3
+                        = "Question Block "
+                        code= ".question"
                     pre= '<div class="question"></div>'
 
-                    h3 Answers Block .answers
+                    h3
+                        = "Answers Block "
+                        code= ".answers"
                     pre= '<ol|div class="answers"></ol|div>'
 
-                    h3 Answer .answers .option
+                    h3
+                        = "Answers Block - Disabled "
+                        code= ".answers.disabled"
+                    pre= '<ol|div class="answers disabled"></ol|div>'
+
+                    h3
+                        = "Answer "
+                        code= ".answers .option "
                     pre= '<li|div class="option"></li|div>'
 
-                    h3 Check Answer .check
+                    h3
+                        = "Answer - Selected "
+                        code= ".answers .option.selected"
+                    pre= '<li|div class="option selected"></li|div>'
+
+                    h3
+                        = "Answer - Disabled "
+                        code= ".answers.disabled .option"
+                    pre
+                        = '<ol|div class="answers disabled">'
+                        br
+                        = '    <li|div class="option"></li|div>'
+                        br
+                        = '</ol|div>'
+
+                    h3
+                        = "Answer - Disabled Selected "
+                        code= ".answers.disabled .option.selected"
+                    pre
+                        = '<ol|div class="answers disabled">'
+                        br
+                        = '    <li|div class="option selected"></li|div>'
+                        br
+                        = '</ol|div>'
+
+                    h3
+                        = "Answer - Disabled Correct "
+                        code= ".answers.disabled .option.correct"
+                    pre
+                        = '<ol|div class="answers disabled">'
+                        br
+                        = '    <li|div class="option correct"></li|div>'
+                        br
+                        = '</ol|div>'
+
+                    h3
+                        = "Answer - Disabled Wrong "
+                        code= ".answers.disabled .option.wrong"
+                    pre
+                        = '<ol|div class="answers disabled">'
+                        br
+                        = '    <li|div class="option wrong"></li|div>'
+                        br
+                        = '</ol|div>'
+
+                    h3
+                        = "Answer - Disabled Selected Correct "
+                        code= ".answers.disabled .option.selected.correct"
+                    pre
+                        = '<ol|div class="answers disabled">'
+                        br
+                        = '    <li|div class="option selected correct"></li|div>'
+                        br
+                        = '</ol|div>'
+
+                    h3
+                        = "Answer - Disabled Selected Wrong "
+                        code= ".answers.disabled .option.selected.wrong"
+                    pre
+                        = '<ol|div class="answers disabled">'
+                        br
+                        = '    <li|div class="option selected wrong"></li|div>'
+                        br
+                        = '</ol|div>'
+
+                    h3
+                        = "Check Answer "
+                        code= ".check"
                     pre= '<button|a class="check">Check Answer</button|a>'
 
             .panel.panel-default
